@@ -1,0 +1,5 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/inno/shensz/LearnOGLTest'
+g++ -Iinclude -Iincl source/* src/camera_mouse_zoom.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/camera_mouse_zoom
+make: Leaving directory '/home/inno/shensz/LearnOGLTest'
+ 

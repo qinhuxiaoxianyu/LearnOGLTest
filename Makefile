@@ -6,3 +6,7 @@ materials:
 	g++ -Iinclude -Iincl source/* src/materials.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/materials
 lighting_maps_specular:
 	g++ -Iinclude -Iincl source/* src/lighting_maps_specular.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/lighting_maps_specular
+light_casters_directional:
+	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_directional.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_directional
+light_casters_point:
+	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_point.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_point
