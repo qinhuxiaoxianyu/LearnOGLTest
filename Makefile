@@ -4,3 +4,5 @@ basic_lighting_specular:
 	g++ -Iinclude -Iincl source/* src/basic_lighting_specular.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/basic_lighting_specular
 materials:
 	g++ -Iinclude -Iincl source/* src/materials.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/materials
+lighting_maps_specular:
+	g++ -Iinclude -Iincl source/* src/lighting_maps_specular.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/lighting_maps_specular
