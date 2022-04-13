@@ -20,8 +20,8 @@ POST=$(CFLAG_OUT) $(OUT_FILE)
 
 # RM 代替 rm -f
 RM_FLAG=-r
-OUT_FILE=out/*
+RM_FILE=out/*
 
 .PHONY:clean
 clean:
-	$(RM) $(RM_FLAG) $(OUT_FILE)
+	$(RM) $(RM_FLAG) $(RM_FILE)

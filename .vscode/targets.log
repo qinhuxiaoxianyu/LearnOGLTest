@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Apr 13 11:43:29 2022
+# Make data base, printed on Wed Apr 13 14:16:18 2022
 
 # Variables
 
@@ -52,8 +52,8 @@ XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from 'Makefile', line 23)
-OUT_FILE = out/*
+# makefile (from 'Makefile', line 10)
+OUT_FILE = out/$@
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -78,6 +78,8 @@ LC_NUMERIC = zh_CN.UTF-8
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
 LS_COLORS = 
+# makefile (from 'Makefile', line 23)
+RM_FILE = out/*
 # automatic
 %F = $(notdir $%)
 # environment
@@ -189,7 +191,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # makefile (from 'Makefile', line 14)
 POST = $(CFLAG_OUT) $(OUT_FILE)
 # variable set hash-table stats:
-# Load=88/1024=9%, Rehash=0, Collisions=14/114=12%
+# Load=89/1024=9%, Rehash=0, Collisions=14/114=12%
 
 # Pattern-specific Variable Values
 
@@ -198,9 +200,9 @@ POST = $(CFLAG_OUT) $(OUT_FILE)
 # Directories
 
 # . (device 2050, inode 13112143): 13 files, no impossibilities.
-# src (device 2050, inode 13245847): 13 files, 2 impossibilities.
+# src (device 2050, inode 13245847): 14 files, 2 impossibilities.
 
-# 26 files, 2 impossibilities in 2 directories.
+# 27 files, 2 impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -227,7 +229,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-13 11:43:19.648559174
+#  Last modified 2022-04-13 14:15:42.756829142
 #  File has been updated.
 #  Successfully updated.
 
@@ -243,7 +245,7 @@ clean:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 27):
-	$(RM) $(RM_FLAG) $(OUT_FILE)
+	$(RM) $(RM_FLAG) $(RM_FILE)
 
 # files hash-table stats:
 # Load=6/1024=1%, Rehash=0, Collisions=0/22=0%
@@ -253,12 +255,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 37 / storage = 456 B / avg = 12 B
-# current buf: size = 8162 B / used = 456 B / count = 37 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 476 B / avg = 12 B
+# current buf: size = 8162 B / used = 476 B / count = 38 / avg = 12 B
 
-# strcache performance: lookups = 49 / hit rate = 24%
+# strcache performance: lookups = 50 / hit rate = 24%
 # hash-table stats:
-# Load=37/8192=0%, Rehash=0, Collisions=2/49=4%
-# Finished Make data base on Wed Apr 13 11:43:29 2022
+# Load=38/8192=0%, Rehash=0, Collisions=2/50=4%
+# Finished Make data base on Wed Apr 13 14:16:18 2022
 
  
