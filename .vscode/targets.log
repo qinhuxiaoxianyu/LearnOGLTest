@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Apr 11 16:11:17 2022
+# Make data base, printed on Wed Apr 13 09:37:51 2022
 
 # Variables
 
@@ -55,7 +55,7 @@ LC_NAME = zh_CN.UTF-8
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 100.58.10.200 62977 100.58.10.137 22
+SSH_CONNECTION = 100.58.10.200 59866 100.58.10.137 22
 # environment
 PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
@@ -75,7 +75,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /home/inno/shensz/LearnOGLTest
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-e2943154-440d-4da4-baa2-f2d76a1ef6b1.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-79963c53-0bb1-4a67-bf0a-9013e38f5f11.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -103,14 +103,11 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 3
 # environment
-XDG_SESSION_ID = 2319
+XDG_SESSION_ID = 2524
 # environment
 USER = root
 # environment
 LC_MONETARY = zh_CN.UTF-8
- 
-make: *** No rule to make target 'all'.  Stop.
-
 # makefile
 .DEFAULT_GOAL := camera_mouse_zoom
 # automatic
@@ -128,7 +125,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 100.58.10.200 62977 22
+SSH_CLIENT = 100.58.10.200 59866 22
 # environment
 MAIL = /var/mail/root
 # automatic
@@ -174,7 +171,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 
 # Directories
 
-# . (device 2050, inode 12985434): 13 files, no impossibilities.
+# . (device 2050, inode 13112143): 13 files, no impossibilities.
 
 # 13 files, no impossibilities in 1 directories.
 
@@ -201,7 +198,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-11 16:10:16.584621723
+#  Last modified 2022-04-13 09:37:51.339018499
 #  File has been updated.
 #  Successfully updated.
 
@@ -260,6 +257,8 @@ materials:
 # strcache performance: lookups = 34 / hit rate = 29%
 # hash-table stats:
 # Load=24/8192=0%, Rehash=0, Collisions=1/34=3%
-# Finished Make data base on Mon Apr 11 16:11:17 2022
+# Finished Make data base on Wed Apr 13 09:37:51 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+

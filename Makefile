@@ -10,3 +10,5 @@ light_casters_directional:
 	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_directional.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_directional
 light_casters_point:
 	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_point.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_point
+light_casters_spot_soft:
+	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_spot_soft.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_spot_soft
