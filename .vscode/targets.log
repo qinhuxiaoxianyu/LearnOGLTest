@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Apr 13 14:16:18 2022
+# Make data base, printed on Wed Apr 13 15:20:41 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ VSCODE_AGENT_FOLDER = /root/.vscode-server
 # environment
 VSCODE_LOG_NATIVE = false
 # makefile (from 'Makefile', line 7)
-LIBRARY = -lGL -lglfw -ldl -lX11 -lpthread
+LIBRARY = -lGL -lglfw -ldl -lX11 -lpthread -lassimp
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -229,7 +229,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-13 14:15:42.756829142
+#  Last modified 2022-04-13 15:19:45.036304638
 #  File has been updated.
 #  Successfully updated.
 
@@ -243,6 +243,7 @@ clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 27):
 	$(RM) $(RM_FLAG) $(RM_FILE)
@@ -261,6 +262,6 @@ clean:
 # strcache performance: lookups = 50 / hit rate = 24%
 # hash-table stats:
 # Load=38/8192=0%, Rehash=0, Collisions=2/50=4%
-# Finished Make data base on Wed Apr 13 14:16:18 2022
+# Finished Make data base on Wed Apr 13 15:20:41 2022
 
  

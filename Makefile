@@ -4,7 +4,7 @@ SOURCE=source/*
 SOURCE_FILE=$^
 
 CFLAG_M=
-LIBRARY=-lGL -lglfw -ldl -lX11 -lpthread
+LIBRARY=-lGL -lglfw -ldl -lX11 -lpthread -lassimp
 
 CFLAG_OUT=-o
 OUT_FILE=out/$@
