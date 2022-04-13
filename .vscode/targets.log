@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Apr 13 09:37:51 2022
+# Make data base, printed on Wed Apr 13 11:43:29 2022
 
 # Variables
 
@@ -20,6 +22,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 VSCODE_AGENT_FOLDER = /root/.vscode-server
 # environment
 VSCODE_LOG_NATIVE = false
+# makefile (from 'Makefile', line 7)
+LIBRARY = -lGL -lglfw -ldl -lX11 -lpthread
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -48,6 +52,8 @@ XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 23)
+OUT_FILE = out/*
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -58,10 +64,14 @@ VSCODE_CWD = /root
 SSH_CONNECTION = 100.58.10.200 59866 100.58.10.137 22
 # environment
 PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# makefile (from 'Makefile', line 22)
+RM_FLAG = -r
 # environment
 XDG_RUNTIME_DIR = /run/user/0
 # environment
 VSCODE_LOG_STACK = false
+# makefile (from 'Makefile', line 9)
+CFLAG_OUT = -o
 # environment
 LC_NUMERIC = zh_CN.UTF-8
 # default
@@ -94,6 +104,8 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
+# makefile (from 'Makefile', line 6)
+CFLAG_M = 
 # environment
 LC_TIME = zh_CN.UTF-8
 # default
@@ -102,6 +114,10 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 3
+# makefile (from 'Makefile', line 1)
+CC = g++
+# makefile (from 'Makefile', line 3)
+SOURCE = source/*
 # environment
 XDG_SESSION_ID = 2524
 # environment
@@ -109,7 +125,9 @@ USER = root
 # environment
 LC_MONETARY = zh_CN.UTF-8
 # makefile
-.DEFAULT_GOAL := camera_mouse_zoom
+.DEFAULT_GOAL := clean
+# makefile (from 'Makefile', line 2)
+INCLUDE = -Iinclude -Iincl
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
@@ -120,6 +138,8 @@ MAKE_COMMAND := make
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
+# makefile (from 'Makefile', line 13)
+MID = $(LIBRARY) $(CFLAG_M)
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -148,10 +168,14 @@ LC_ALL = C
 LC_PAPER = zh_CN.UTF-8
 # default
 SUFFIXES := 
+# makefile (from 'Makefile', line 4)
+SOURCE_FILE = $^
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
 VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/remote/node_modules
+# makefile (from 'Makefile', line 12)
+PRE = $(CC) $(INCLUDE) $(SOURCE) $(SOURCE_FILE)
 # default
 .RECIPEPREFIX := 
 # environment
@@ -162,8 +186,10 @@ MAKE_HOST := x86_64-pc-linux-gnu
 LANG = C
 # environment
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# makefile (from 'Makefile', line 14)
+POST = $(CFLAG_OUT) $(OUT_FILE)
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=13/101=13%
+# Load=88/1024=9%, Rehash=0, Collisions=14/114=12%
 
 # Pattern-specific Variable Values
 
@@ -172,21 +198,19 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Directories
 
 # . (device 2050, inode 13112143): 13 files, no impossibilities.
+# src (device 2050, inode 13245847): 13 files, 2 impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 26 files, 2 impossibilities in 2 directories.
 
 # Implicit Rules
 
-# No implicit rules.
+%: src/%.cpp
+#  recipe to execute (from 'Makefile', line 17):
+	$(PRE) $(MID) $(POST)
+
+# 1 implicit rules, 0 (0.0%) terminal.
 
 # Files
-
-light_casters_directional:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 10):
-	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_directional.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_directional
 
 # Not a target:
 all:
@@ -195,40 +219,17 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
+.PHONY: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-13 09:37:51.339018499
+#  Last modified 2022-04-13 11:43:19.648559174
 #  File has been updated.
 #  Successfully updated.
-
-camera_mouse_zoom:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 2):
-	g++ -Iinclude -Iincl source/* src/camera_mouse_zoom.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/camera_mouse_zoom
-
-light_casters_point:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 12):
-	g++ -Iinclude -Iincl source/* src/Light\ casters/light_casters_point.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/light_casters_point
-
-lighting_maps_specular:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 8):
-	g++ -Iinclude -Iincl source/* src/lighting_maps_specular.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/lighting_maps_specular
-
-basic_lighting_specular:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 4):
-	g++ -Iinclude -Iincl source/* src/basic_lighting_specular.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/basic_lighting_specular
 
 # Not a target:
 .DEFAULT:
@@ -236,29 +237,28 @@ basic_lighting_specular:
 #  Modification time never checked.
 #  File has not been updated.
 
-materials:
+clean:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 6):
-	g++ -Iinclude -Iincl source/* src/materials.cpp  -lGL -lglfw -ldl -lX11 -lpthread -o out/materials
+#  recipe to execute (from 'Makefile', line 27):
+	$(RM) $(RM_FLAG) $(OUT_FILE)
 
 # files hash-table stats:
-# Load=10/1024=1%, Rehash=0, Collisions=1/20=5%
+# Load=6/1024=1%, Rehash=0, Collisions=0/22=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 257 B / avg = 10 B
-# current buf: size = 8162 B / used = 257 B / count = 24 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 37 / storage = 456 B / avg = 12 B
+# current buf: size = 8162 B / used = 456 B / count = 37 / avg = 12 B
 
-# strcache performance: lookups = 34 / hit rate = 29%
+# strcache performance: lookups = 49 / hit rate = 24%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=1/34=3%
-# Finished Make data base on Wed Apr 13 09:37:51 2022
+# Load=37/8192=0%, Rehash=0, Collisions=2/49=4%
+# Finished Make data base on Wed Apr 13 11:43:29 2022
 
  
-make: *** No rule to make target 'all'.  Stop.
-
