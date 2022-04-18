@@ -98,6 +98,7 @@ private:
         for(unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex;
+            //glm::vec3 vector(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
             glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
             // positions
             vector.x = mesh->mVertices[i].x;
@@ -113,6 +114,7 @@ private:
                 vertex.Normal = vector;
             }
             // texture coordinates
+            //Assimp允许一个模型在一个顶点上有最多8个不同的纹理坐标,我们只关心第一组纹理坐标
             if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
                 glm::vec2 vec;
