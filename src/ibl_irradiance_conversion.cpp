@@ -40,7 +40,7 @@ int main()
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_SAMPLES, 4);//多重采样设置相关
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -80,7 +80,7 @@ int main()
     // build and compile shaders
     // -------------------------
     Shader pbrShader("shader/2.1.1.pbr.vs", "shader/2.1.1.pbr.fs");
-    Shader equirectangularToCubemapShader("shader/2.1.1.cubemap.vs", "shader/2.1.1.equirectangular_to_cubemap.fs");
+    Shader equirectangularToCubemapShader("shader/2.1.1.cubemap.vs", "shader/2.1.1.equirectangular_to_cubemap.fs");//将等距柱状投影图转换为立方体贴图
     Shader backgroundShader("shader/2.1.1.background.vs", "shader/2.1.1.background.fs");
 
 
@@ -114,8 +114,8 @@ int main()
     // ----------------------
     unsigned int captureFBO;
     unsigned int captureRBO;
-    glGenFramebuffers(1, &captureFBO);
-    glGenRenderbuffers(1, &captureRBO);
+    glGenFramebuffers(1, &captureFBO);//立方体贴图6个面的帧缓冲
+    glGenRenderbuffers(1, &captureRBO);//存深度
 
     glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
     glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
@@ -123,6 +123,7 @@ int main()
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);
 
     // pbr: load the HDR environment map
+    //加载等距柱状投影图
     // ---------------------------------
     stbi_set_flip_vertically_on_load(true);
     int width, height, nrComponents;
@@ -147,6 +148,7 @@ int main()
     }
 
     // pbr: setup cubemap to render to and attach to framebuffer
+    //设置立方体贴图到帧缓冲
     // ---------------------------------------------------------
     unsigned int envCubemap;
     glGenTextures(1, &envCubemap);
@@ -175,6 +177,7 @@ int main()
     };
 
     // pbr: convert HDR equirectangular environment map to cubemap equivalent
+    //把等距柱状投影图转换为立方体贴图
     // ----------------------------------------------------------------------
     equirectangularToCubemapShader.use();
     equirectangularToCubemapShader.setInt("equirectangularMap", 0);
