@@ -24,7 +24,7 @@ void main()
        
     float sampleDelta = 0.025;
     float nrSamples = 0.0;
-    for(float phi = 0.0; phi < 2.0 * PI; phi += sampleDelta)
+    for(float phi = 0.0; phi < 2.0 * PI; phi += sampleDelta)//这里其实还是不是很理解怎么算的
     {
         for(float theta = 0.0; theta < 0.5 * PI; theta += sampleDelta)
         {
