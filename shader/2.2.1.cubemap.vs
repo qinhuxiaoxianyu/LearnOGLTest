@@ -8,6 +8,6 @@ uniform mat4 view;
 
 void main()
 {
-    WorldPos = aPos;  
+    WorldPos = aPos;//环境立方体贴图就不用了左乘model矩阵变换到世界空间了
     gl_Position =  projection * view * vec4(WorldPos, 1.0);
 }

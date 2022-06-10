@@ -5,7 +5,7 @@ in vec3 WorldPos;
 uniform sampler2D equirectangularMap;
 
 const vec2 invAtan = vec2(0.1591, 0.3183);
-vec2 SampleSphericalMap(vec3 v)
+vec2 SampleSphericalMap(vec3 v)//还是不明白立方体贴图坐标，怎么转换为等距立方体贴图的坐标的
 {
     vec2 uv = vec2(atan(v.z, v.x), asin(v.y));
     uv *= invAtan;

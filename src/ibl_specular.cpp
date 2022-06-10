@@ -84,8 +84,8 @@ int main()
     // build and compile shaders
     // -------------------------
     Shader pbrShader("shader/2.2.1.pbr.vs", "shader/2.2.1.pbr.fs");
-    Shader equirectangularToCubemapShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.equirectangular_to_cubemap.fs");
-    Shader irradianceShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.irradiance_convolution.fs");
+    Shader equirectangularToCubemapShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.equirectangular_to_cubemap.fs");//将等距柱状投影图转换为立方体贴图
+    Shader irradianceShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.irradiance_convolution.fs");//将立方体贴图转换为辐照度图
     Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");
     Shader brdfShader("shader/2.2.1.brdf.vs", "shader/2.2.1.brdf.fs");
     Shader backgroundShader("shader/2.2.1.background.vs", "shader/2.2.1.background.fs");
@@ -129,11 +129,11 @@ int main()
     glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
     glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);//将RBO附着到FBO上
 
     // pbr: load the HDR environment map
     // ---------------------------------
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(true);//翻转y轴上加载的纹理
     int width, height, nrComponents;
     float *data = stbi_loadf("resource/newport_loft.hdr", &width, &height, &nrComponents, 0);
     unsigned int hdrTexture;
@@ -142,10 +142,10 @@ int main()
         glGenTextures(1, &hdrTexture);
         glBindTexture(GL_TEXTURE_2D, hdrTexture);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, data); // note how we specify the texture's data value to be float
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        //GL_RGB16F表示把纹理存储为何种格式，GL_RGB和GL_FLOAT表示源图的格式和数据类型
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);//纹理环绕方式
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//纹理过滤方式
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         stbi_image_free(data);
@@ -157,7 +157,7 @@ int main()
 
     // pbr: setup cubemap to render to and attach to framebuffer
     // ---------------------------------------------------------
-    unsigned int envCubemap;
+    unsigned int envCubemap;//环境立方体贴图
     glGenTextures(1, &envCubemap);
     glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
     for (unsigned int i = 0; i < 6; ++i)
@@ -168,6 +168,7 @@ int main()
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // enable pre-filter mipmap sampling (combatting visible dots artifact)
+    //启用三线性过滤，消除可见点伪影；
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // pbr: set up projection and view matrices for capturing data onto the 6 cubemap face directions
@@ -196,7 +197,7 @@ int main()
     for (unsigned int i = 0; i < 6; ++i)
     {
         equirectangularToCubemapShader.setMat4("view", captureViews[i]);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);//将2D纹理附着到FBO上
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         renderCube();
@@ -205,11 +206,11 @@ int main()
 
     // then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
     glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);//立方体贴图生成多级纹理
 
     // pbr: create an irradiance cubemap, and re-scale capture FBO to irradiance scale.
     // --------------------------------------------------------------------------------
-    unsigned int irradianceMap;
+    unsigned int irradianceMap;//辐照度立方体贴图
     glGenTextures(1, &irradianceMap);
     glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
     for (unsigned int i = 0; i < 6; ++i)
