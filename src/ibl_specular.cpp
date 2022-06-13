@@ -87,7 +87,7 @@ int main()
     Shader equirectangularToCubemapShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.equirectangular_to_cubemap.fs");//将等距柱状投影图转换为立方体贴图
     Shader irradianceShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.irradiance_convolution.fs");//将立方体贴图转换为辐照度图
     Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");//生成预滤波环境贴图
-    Shader brdfShader("shader/2.2.1.brdf.vs", "shader/2.2.1.brdf.fs");
+    Shader brdfShader("shader/2.2.1.brdf.vs", "shader/2.2.1.brdf.fs");//生成brdf积分贴图
     Shader backgroundShader("shader/2.2.1.background.vs", "shader/2.2.1.background.fs");
 
     pbrShader.use();
@@ -298,7 +298,7 @@ int main()
 
     // pbr: generate a 2D LUT from the BRDF equations used.
     // ----------------------------------------------------
-    unsigned int brdfLUTTexture;
+    unsigned int brdfLUTTexture;//brdf积分贴图，2d查找纹理
     glGenTextures(1, &brdfLUTTexture);
 
     // pre-allocate enough memory for the LUT texture.
