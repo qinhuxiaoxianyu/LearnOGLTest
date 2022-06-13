@@ -10,7 +10,7 @@ void main()
 {		
     vec3 N = normalize(WorldPos);
 
-    vec3 irradiance = vec3(0.0);   
+    vec3 irradiance = vec3(0.0);
     
     // tangent space calculation from origin point
     vec3 up    = vec3(0.0, 1.0, 0.0);
@@ -24,15 +24,15 @@ void main()
         for(float theta = 0.0; theta < 0.5 * PI; theta += sampleDelta)
         {
             // spherical to cartesian (in tangent space)
-            vec3 tangentSample = vec3(sin(theta) * cos(phi),  sin(theta) * sin(phi), cos(theta));
+            vec3 tangentSample = vec3(sin(theta) * cos(phi),  sin(theta) * sin(phi), cos(theta));//不太理解切线空间的操作
             // tangent space to world
-            vec3 sampleVec = tangentSample.x * right + tangentSample.y * up + tangentSample.z * N; 
+            vec3 sampleVec = tangentSample.x * right + tangentSample.y * up + tangentSample.z * N; //不太理解切线空间的操作
 
             irradiance += texture(environmentMap, sampleVec).rgb * cos(theta) * sin(theta);
             nrSamples++;
         }
     }
-    irradiance = PI * irradiance * (1.0 / float(nrSamples));
+    irradiance = PI * irradiance * (1.0 / float(nrSamples));//这里的PI和kd * c / PI里的PI是一个PI吗，好像是的pbr.fs里没有除PI的操作，那这里是不是有问题？
     
     FragColor = vec4(irradiance, 1.0);
 }

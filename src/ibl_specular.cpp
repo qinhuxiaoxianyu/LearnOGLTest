@@ -86,7 +86,7 @@ int main()
     Shader pbrShader("shader/2.2.1.pbr.vs", "shader/2.2.1.pbr.fs");
     Shader equirectangularToCubemapShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.equirectangular_to_cubemap.fs");//将等距柱状投影图转换为立方体贴图
     Shader irradianceShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.irradiance_convolution.fs");//将立方体贴图转换为辐照度图
-    Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");
+    Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");//生成预滤波环境贴图
     Shader brdfShader("shader/2.2.1.brdf.vs", "shader/2.2.1.brdf.fs");
     Shader backgroundShader("shader/2.2.1.background.vs", "shader/2.2.1.background.fs");
 
@@ -249,7 +249,7 @@ int main()
 
     // pbr: create a pre-filter cubemap, and re-scale capture FBO to pre-filter scale.
     // --------------------------------------------------------------------------------
-    unsigned int prefilterMap;
+    unsigned int prefilterMap;//预滤波环境贴图
     glGenTextures(1, &prefilterMap);
     glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
     for (unsigned int i = 0; i < 6; ++i)
