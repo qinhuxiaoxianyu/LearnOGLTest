@@ -87,14 +87,15 @@ vec2 IntegrateBRDF(float NdotV, float roughness)
         vec3 H = ImportanceSampleGGX(Xi, N, roughness);
         vec3 L = normalize(2.0 * dot(V, H) * H - V);
 
-        float NdotL = max(L.z, 0.0);
+        float NdotL = max(L.z, 0.0);//这些向量都是什么意思 
         float NdotH = max(H.z, 0.0);
         float VdotH = max(dot(V, H), 0.0);
 
         if(NdotL > 0.0)
         {
+            //没有NDF？？
             float G = GeometrySmith(N, V, L, roughness);
-            float G_Vis = (G * VdotH) / (NdotH * NdotV);
+            float G_Vis = (G * VdotH) / (NdotH * NdotV);//公式也用得不对吧？
             float Fc = pow(1.0 - VdotH, 5.0);
 
             A += (1.0 - Fc) * G_Vis;
@@ -108,6 +109,6 @@ vec2 IntegrateBRDF(float NdotV, float roughness)
 // ----------------------------------------------------------------------------
 void main() 
 {
-    vec2 integratedBRDF = IntegrateBRDF(TexCoords.x, TexCoords.y);
-    FragColor = integratedBRDF;
+    vec2 integratedBRDF = IntegrateBRDF(TexCoords.x, TexCoords.y);//横坐标是n·w，纵坐标是roughness
+    FragColor = integratedBRDF;//F0的系数和偏差
 }

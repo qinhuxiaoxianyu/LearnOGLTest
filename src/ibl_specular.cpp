@@ -129,7 +129,7 @@ int main()
     glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
     glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);//将RBO附着到FBO上
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);//将RBO附着到FBO上，这个值用执行一次
 
     // pbr: load the HDR environment map
     // ---------------------------------
@@ -206,7 +206,7 @@ int main()
 
     // then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
     glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);//立方体贴图生成多级纹理
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);//环境立方体贴图生成多级纹理，预过滤卷积的亮点用
 
     // pbr: create an irradiance cubemap, and re-scale capture FBO to irradiance scale.
     // --------------------------------------------------------------------------------
