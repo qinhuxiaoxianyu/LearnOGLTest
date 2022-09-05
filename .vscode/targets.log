@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Apr 19 10:23:40 2022
+# Make data base, printed on Mon Sep  5 21:51:00 2022
 
 # Variables
 
@@ -19,10 +17,8 @@ make: *** No rule to make target 'all'.  Stop.
 # default
 .SHELLFLAGS := -c
 # environment
-VSCODE_AGENT_FOLDER = /root/.vscode-server
-# environment
-VSCODE_LOG_NATIVE = false
-# makefile (from 'Makefile', line 7)
+VSCODE_AGENT_FOLDER = /home/shensz/.vscode-server
+# makefile (from 'Makefile', line 6)
 LIBRARY = -lGL -lglfw -ldl -lX11 -lpthread -lassimp
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -33,47 +29,39 @@ LIBRARY = -lGL -lglfw -ldl -lX11 -lpthread -lassimp
 # default
 MAKE_VERSION := 4.1
 # makefile
-CURDIR := /home/inno/shensz/LearnOGLTest
+CURDIR := /home/shensz/workspace/LearnOGLTest
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn","_translationsConfigFile":"/root/.vscode-server/data/clp/85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn/tcf.json","_cacheRoot":"/root/.vscode-server/data/clp/85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn","_resolvedLanguagePackCoreLocation":"/root/.vscode-server/data/clp/85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn/899d46d82c4c95423fb7e10e68eba52050e30ba3","_corruptedFile":"/root/.vscode-server/data/clp/85dc8b33bfa057e31dfd84e9a10f67e1.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"cc0490d1397af23dc5bf44a96fe15dbb.zh-cn","_translationsConfigFile":"/home/shensz/.vscode-server/data/clp/cc0490d1397af23dc5bf44a96fe15dbb.zh-cn/tcf.json","_cacheRoot":"/home/shensz/.vscode-server/data/clp/cc0490d1397af23dc5bf44a96fe15dbb.zh-cn","_resolvedLanguagePackCoreLocation":"/home/shensz/.vscode-server/data/clp/cc0490d1397af23dc5bf44a96fe15dbb.zh-cn/e4503b30fc78200f846c62cf8091b76ff5547662","_corruptedFile":"/home/shensz/.vscode-server/data/clp/cc0490d1397af23dc5bf44a96fe15dbb.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/node
+_ = /home/shensz/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
-MAKELEVEL := 0
-# environment
 XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
-# environment
-VSCODE_VERBOSE_LOGGING = true
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # makefile (from 'Makefile', line 10)
 OUT_FILE = out/$@
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
-LC_NAME = zh_CN.UTF-8
+VSCODE_CWD = /home/shensz
 # environment
-VSCODE_CWD = /root
+SSH_CONNECTION = 192.168.182.1 54847 192.168.182.131 22
 # environment
-SSH_CONNECTION = 100.58.10.200 52875 100.58.10.137 22
-# environment
-PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/shensz/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # makefile (from 'Makefile', line 22)
 RM_FLAG = -r
 # environment
-XDG_RUNTIME_DIR = /run/user/0
-# environment
-VSCODE_LOG_STACK = false
+XDG_RUNTIME_DIR = /run/user/1000
 # makefile (from 'Makefile', line 9)
 CFLAG_OUT = -o
 # environment
-LC_NUMERIC = zh_CN.UTF-8
+ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -83,33 +71,31 @@ RM_FILE = out/*
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_PIPE_LOGGING = true
+PWD = /home/shensz/workspace/LearnOGLTest
 # environment
-PWD = /home/inno/shensz/LearnOGLTest
-# environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-17bc75f5-3d0e-4cc2-ad3b-f1503c1e46cf.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-07b3a008-764a-4aa3-b2fb-9aeed25a33f2.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /root
+HOME = /home/shensz
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
-LOGNAME = root
+LOGNAME = shensz
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
 +F = $(notdir $+)
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
-# makefile (from 'Makefile', line 6)
-CFLAG_M = 
+# makefile (from 'Makefile', line 7)
+CFLAG_M = -g
 # environment
-LC_TIME = zh_CN.UTF-8
+MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -121,25 +107,23 @@ CC = g++
 # makefile (from 'Makefile', line 3)
 SOURCE = source/*
 # environment
-XDG_SESSION_ID = 2699
+XDG_SESSION_ID = 3
 # environment
-USER = root
-# environment
-LC_MONETARY = zh_CN.UTF-8
+USER = shensz
 # makefile
 .DEFAULT_GOAL := clean
 # makefile (from 'Makefile', line 2)
 INCLUDE = -Iinclude -Iincl
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# environment
-LC_TELEPHONE = zh_CN.UTF-8
 # default
 MAKE_COMMAND := make
 # default
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
+# environment
+LANGUAGE = zh_CN:zh
 # makefile (from 'Makefile', line 13)
 MID = $(LIBRARY) $(CFLAG_M)
 # makefile
@@ -147,51 +131,41 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 100.58.10.200 52875 22
+SSH_CLIENT = 192.168.182.1 54847 22
 # environment
-MAIL = /var/mail/root
+MAIL = /var/mail/shensz
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin/helpers/browser.sh
+BROWSER = /home/shensz/.vscode-server/bin/e4503b30fc78200f846c62cf8091b76ff5547662/bin/helpers/browser.sh
 # environment
-LC_IDENTIFICATION = zh_CN.UTF-8
+VSCODE_HANDLES_SIGPIPE = true
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# automatic
-^F = $(notdir $^)
-# environment
-LC_MEASUREMENT = zh_CN.UTF-8
 # environment
 LC_ALL = C
-# environment
-LC_PAPER = zh_CN.UTF-8
+# automatic
+^F = $(notdir $^)
 # default
 SUFFIXES := 
 # makefile (from 'Makefile', line 4)
 SOURCE_FILE = $^
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
-# environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/remote/node_modules
 # makefile (from 'Makefile', line 12)
 PRE = $(CC) $(INCLUDE) $(SOURCE) $(SOURCE_FILE)
 # default
 .RECIPEPREFIX := 
-# environment
-LC_ADDRESS = zh_CN.UTF-8
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
 LANG = C
-# environment
-VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # makefile (from 'Makefile', line 14)
 POST = $(CFLAG_OUT) $(OUT_FILE)
 # variable set hash-table stats:
-# Load=89/1024=9%, Rehash=0, Collisions=14/114=12%
+# Load=77/1024=8%, Rehash=0, Collisions=9/102=9%
 
 # Pattern-specific Variable Values
 
@@ -199,10 +173,10 @@ POST = $(CFLAG_OUT) $(OUT_FILE)
 
 # Directories
 
-# . (device 2050, inode 13112143): 13 files, no impossibilities.
-# src (device 2050, inode 13245847): 15 files, 2 impossibilities.
+# . (device 2049, inode 265105): 15 files, no impossibilities.
+# src (device 2049, inode 269780): 35 files, 2 impossibilities.
 
-# 28 files, 2 impossibilities in 2 directories.
+# 50 files, 2 impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -229,7 +203,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-18 17:10:36.404769833
+#  Last modified 2022-09-05 21:48:31.459355263
 #  File has been updated.
 #  Successfully updated.
 
@@ -255,12 +229,14 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 39 / storage = 494 B / avg = 12 B
-# current buf: size = 8162 B / used = 494 B / count = 39 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 61 / storage = 996 B / avg = 16 B
+# current buf: size = 8162 B / used = 996 B / count = 61 / avg = 16 B
 
-# strcache performance: lookups = 51 / hit rate = 23%
+# strcache performance: lookups = 73 / hit rate = 16%
 # hash-table stats:
-# Load=39/8192=0%, Rehash=0, Collisions=2/51=4%
-# Finished Make data base on Tue Apr 19 10:23:40 2022
+# Load=61/8192=1%, Rehash=0, Collisions=2/73=3%
+# Finished Make data base on Mon Sep  5 21:51:00 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+
