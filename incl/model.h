@@ -211,6 +211,10 @@ private:
 unsigned int TextureFromFile(const char *path, const string &directory, bool gamma)
 {
     string filename = string(path);
+    //filename.erase(filename.find('\\'), 1);
+    while (filename.find('\\') != -1){
+        filename[filename.find('\\')] = '/';
+    }
     filename = directory + '/' + filename;
 
     unsigned int textureID;
