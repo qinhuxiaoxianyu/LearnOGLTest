@@ -454,15 +454,15 @@ int main()
             renderSphere();
         }
         */
-
+/**/
         // render skybox (render as last to prevent overdraw)
         backgroundShader.use();
         backgroundShader.setMat4("view", view);
         renderCube();
 
         // render BRDF map to screen
-        //brdfShader.use();
-        //renderQuad();
+        // brdfShader.use();
+        // renderQuad();
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

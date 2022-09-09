@@ -1,3 +1,10 @@
+/*
+float RadicalInverse_VdC(uint bits) 
+vec2 Hammersley(uint i, uint N)
+vec3 ImportanceSampleGGX(vec2 Xi, vec3 N, float roughness)
+float GeometrySchlickGGX(float NdotV, float roughness)
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
+*/
 #version 330 core
 out vec2 FragColor;
 in vec2 TexCoords;

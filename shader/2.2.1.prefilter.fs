@@ -1,3 +1,9 @@
+/*
+float DistributionGGX
+float RadicalInverse_VdC(uint bits)
+vec2 Hammersley(uint i, uint N)
+vec3 ImportanceSampleGGX(vec2 Xi, vec3 N, float roughness)
+*/
 #version 330 core
 out vec4 FragColor;
 in vec3 WorldPos;
@@ -20,6 +26,32 @@ float DistributionGGX(vec3 N, vec3 H, float roughness)
 
     return nom / denom;
 }
+/*
+float RadicalInverse(uint Base, uint i)
+{
+	float Radical = 1.0 / float(Base);
+	float Digit = 1.0 / float(Base);
+	float Inverse = 0.0;
+	for(i; i > 0u; i /= Base)
+	{
+		Inverse += Digit * (float(i % Base));
+		Digit *= Radical;
+
+		// i /= Base;
+	}
+	return Inverse;
+}
+
+vec2 Halton(uint i)
+{
+	return vec2(RadicalInverse(2u, i), RadicalInverse(3u, i));
+}
+
+vec2 Hammersley(uint i, uint N)
+{
+	return vec2(float(i)/float(N), RadicalInverse(2u, i));//Hammersley 序列是基于 Van Der Corput 序列
+}
+*/
 // ----------------------------------------------------------------------------
 // http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html
 // efficient VanDerCorpus calculation.
@@ -37,6 +69,7 @@ vec2 Hammersley(uint i, uint N)
 {
 	return vec2(float(i)/float(N), RadicalInverse_VdC(i));//Hammersley 序列是基于 Van Der Corput 序列
 }
+
 // ----------------------------------------------------------------------------
 vec3 ImportanceSampleGGX(vec2 Xi, vec3 N, float roughness)//这个有时间也要再看看？
 {
@@ -80,6 +113,7 @@ void main()
     {
         // generates a sample vector that's biased towards the preferred alignment direction (importance sampling).
         vec2 Xi = Hammersley(i, SAMPLE_COUNT);//低差异序列，Hammersley 序列
+        //vec2 Xi = Halton(i);
         vec3 H = ImportanceSampleGGX(Xi, N, roughness);//根据低差异序列，采样方向和粗糙度生成采样向量，但实际并不用这个向量取样
         vec3 L  = normalize(2.0 * dot(V, H) * H - V);//这里不是很懂在干嘛？
         //通过画图，大概可以理解到L是用于计算镜面波瓣的边界？
