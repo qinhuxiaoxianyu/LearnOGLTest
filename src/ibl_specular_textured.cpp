@@ -100,6 +100,7 @@ int main()
     pbrShader.setInt("metallicMap", 5);
     pbrShader.setInt("roughnessMap", 6);
     pbrShader.setInt("aoMap", 7);
+    pbrShader.setInt("environmentMap", 8);
 
     backgroundShader.use();
     backgroundShader.setInt("environmentMap", 8);
@@ -119,6 +120,7 @@ int main()
     // -----------
     Model ourModel("resource/Cerberus/Cerberus_LP.FBX");
     /**/
+    stbi_set_flip_vertically_on_load(false);
     unsigned int ironAlbedoMap = loadTexture("resource/Cerberus/Textures/Cerberus_A.tga");
     unsigned int ironNormalMap = loadTexture("resource/Cerberus/Textures/Cerberus_N.tga");
     unsigned int ironMetallicMap = loadTexture("resource/Cerberus/Textures/Cerberus_M.tga");
@@ -381,12 +383,20 @@ int main()
         glActiveTexture(GL_TEXTURE7);
         glBindTexture(GL_TEXTURE_2D, ironAOMap);
 
+        glActiveTexture(GL_TEXTURE8);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
         glm::mat4 model = glm::mat4(1.0f);
         
         glActiveTexture(GL_TEXTURE8);
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
         //glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
         //glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
+
+            model = glm::translate(model, glm::vec3(-0.55f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+            model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
+            model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
     // render loop
     // -----------
@@ -414,13 +424,17 @@ int main()
         pbrShader.setMat4("view", view);
         pbrShader.setVec3("camPos", camera.Position);
 
+/*
         for (int i = 0; i < 5; i++){
             model = glm::mat4(1.0f);
             model = glm::translate(model, glm::vec3(-5.0 + i * 2.5, 0.0, 2.0));
             pbrShader.setMat4("model", model);
-            //renderSphere();
-            ourModel.Draw(pbrShader);
+            renderSphere();
         }
+*/        
+        /**/
+        pbrShader.setMat4("model", model);
+        ourModel.Draw(pbrShader);
 
         // render light source (simply re-render sphere at light positions)
         // this looks a bit off as we use the same shader, but it'll make their positions obvious and 
