@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Sep 11 00:16:22 2022
+# Make data base, printed on Sun Sep 11 01:00:11 2022
 
 # Variables
 
@@ -53,7 +51,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /home/shensz
 # environment
-SSH_CONNECTION = 192.168.182.1 58537 192.168.182.131 22
+SSH_CONNECTION = 192.168.182.1 59534 192.168.182.131 22
 # environment
 PATH = /home/shensz/.vscode-server/bin/784b0177c56c607789f9638da7b6bf3230d47a8c/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # makefile (from 'Makefile', line 22)
@@ -75,7 +73,7 @@ RM_FILE = out/*
 # environment
 PWD = /home/shensz/workspace/LearnOGLTest
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-0e705cf8-8e63-4b82-9dff-31d79261d580.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-24e9e095-3cd7-449e-9bdb-c6078c6d1cd4.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -109,7 +107,7 @@ CC = g++
 # makefile (from 'Makefile', line 3)
 SOURCE = source/*
 # environment
-XDG_SESSION_ID = 4
+XDG_SESSION_ID = 3
 # environment
 USER = shensz
 # makefile
@@ -133,7 +131,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 192.168.182.1 58537 22
+SSH_CLIENT = 192.168.182.1 59534 22
 # environment
 MAIL = /var/mail/shensz
 # automatic
@@ -237,6 +235,8 @@ clean:
 # strcache performance: lookups = 75 / hit rate = 16%
 # hash-table stats:
 # Load=63/8192=1%, Rehash=0, Collisions=2/75=3%
-# Finished Make data base on Sun Sep 11 00:16:22 2022
+# Finished Make data base on Sun Sep 11 01:00:11 2022
 
  
+make: *** No rule to make target 'all'.  Stop.
+

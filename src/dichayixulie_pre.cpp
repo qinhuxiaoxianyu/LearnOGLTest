@@ -14,8 +14,6 @@
 #include <chrono>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 unsigned int loadTexture(const char *path);
 void renderSphere();
@@ -61,8 +59,6 @@ int main()
         return -1;
     }
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
 
     // tell GLFW to capture our mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -83,69 +79,9 @@ int main()
     // enable seamless cubemap sampling for lower mip levels in the pre-filter map.
     glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
-    // build and compile shaders
-    // -------------------------
-    Shader pbrShader("shader/2.2.1.pbr.vs", "shader/2.2.2.pbr.fs");
     Shader equirectangularToCubemapShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.equirectangular_to_cubemap.fs");//将等距柱状投影图转换为立方体贴图
-    Shader irradianceShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.irradiance_convolution.fs");//将立方体贴图转换为辐照度图
     Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");//生成预滤波环境贴图
-    Shader brdfShader("shader/2.2.1.brdf.vs", "shader/2.2.1.brdf.fs");//生成brdf积分贴图
-    Shader backgroundShader("shader/2.2.1.background.vs", "shader/2.2.1.background.fs");
 
-    pbrShader.use();
-    pbrShader.setInt("irradianceMap", 0);
-    pbrShader.setInt("prefilterMap", 1);
-    pbrShader.setInt("brdfLUT", 2);
-    pbrShader.setInt("albedoMap", 3);
-    pbrShader.setInt("normalMap", 4);
-    pbrShader.setInt("metallicMap", 5);
-    pbrShader.setInt("roughnessMap", 6);
-    pbrShader.setInt("aoMap", 7);
-    pbrShader.setInt("environmentMap", 8);
-
-    backgroundShader.use();
-    backgroundShader.setInt("environmentMap", 8);
-
-    // load PBR material textures
-    // --------------------------
-    // rusted iron
-    /**/
-    unsigned int ironAlbedoMap = loadTexture("resource/rusted_iron/albedo.png");
-    unsigned int ironNormalMap = loadTexture("resource/rusted_iron/normal.png");
-    unsigned int ironMetallicMap = loadTexture("resource/rusted_iron/metallic.png");
-    unsigned int ironRoughnessMap = loadTexture("resource/rusted_iron/roughness.png");
-    unsigned int ironAOMap = loadTexture("resource/rusted_iron/ao.png");
-    
-
-    // load models
-    // -----------
-    //Model ourModel("resource/Cerberus/Cerberus_LP.FBX");
-    /*
-    stbi_set_flip_vertically_on_load(false);
-    unsigned int ironAlbedoMap = loadTexture("resource/Cerberus/Textures/Cerberus_A.tga");
-    unsigned int ironNormalMap = loadTexture("resource/Cerberus/Textures/Cerberus_N.tga");
-    unsigned int ironMetallicMap = loadTexture("resource/Cerberus/Textures/Cerberus_M.tga");
-    unsigned int ironRoughnessMap = loadTexture("resource/Cerberus/Textures/Cerberus_R.tga");
-    unsigned int ironAOMap = loadTexture("resource/Cerberus/Textures/Raw/Cerberus_AO.tga");
-    */
-
-
-    // lights
-    // ------
-    /*
-    glm::vec3 lightPositions[] = {
-        glm::vec3(-10.0f,  10.0f, 10.0f),
-        glm::vec3( 10.0f,  10.0f, 10.0f),
-        glm::vec3(-10.0f, -10.0f, 10.0f),
-        glm::vec3( 10.0f, -10.0f, 10.0f),
-    };
-    glm::vec3 lightColors[] = {
-        glm::vec3(300.0f, 300.0f, 300.0f),
-        glm::vec3(300.0f, 300.0f, 300.0f),
-        glm::vec3(300.0f, 300.0f, 300.0f),
-        glm::vec3(300.0f, 300.0f, 300.0f)
-    };
-    */
 
     // pbr: setup framebuffer
     // ----------------------
@@ -235,61 +171,6 @@ int main()
     glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
-    // pbr: create an irradiance cubemap, and re-scale capture FBO to irradiance scale.
-    // --------------------------------------------------------------------------------
-    unsigned int irradianceMap;
-    glGenTextures(1, &irradianceMap);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-    for (unsigned int i = 0; i < 6; ++i)
-    {
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, 32, 32, 0, GL_RGB, GL_FLOAT, nullptr);
-    }
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-    glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 32, 32);
-
-    // pbr: solve diffuse integral by convolution to create an irradiance (cube)map.
-    // -----------------------------------------------------------------------------
-    irradianceShader.use();
-    irradianceShader.setInt("environmentMap", 0);
-    irradianceShader.setMat4("projection", captureProjection);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-
-    glViewport(0, 0, 32, 32); // don't forget to configure the viewport to the capture dimensions.
-    glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-    for (unsigned int i = 0; i < 6; ++i)
-    {
-        irradianceShader.setMat4("view", captureViews[i]);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, irradianceMap, 0);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        renderCube();
-    }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    // pbr: create a pre-filter cubemap, and re-scale capture FBO to pre-filter scale.
-    // --------------------------------------------------------------------------------
-    unsigned int prefilterMap;
-    glGenTextures(1, &prefilterMap);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
-    for (unsigned int i = 0; i < 6; ++i)
-    {
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, 128, 128, 0, GL_RGB, GL_FLOAT, nullptr);
-    }
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // be sure to set minification filter to mip_linear 
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // generate mipmaps for the cubemap so OpenGL automatically allocates the required memory.
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
     // pbr: run a quasi monte-carlo simulation on the environment lighting to create a prefilter (cube)map.
     // ----------------------------------------------------------------------------------------------------
@@ -299,80 +180,57 @@ int main()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
     unsigned int maxMipLevels = 5;
-    for (unsigned int mip = 0; mip < maxMipLevels; ++mip)
-    {
-        // reisze framebuffer according to mip-level size.
-        unsigned int mipWidth = static_cast<unsigned int>(128 * std::pow(0.5, mip));
-        unsigned int mipHeight = static_cast<unsigned int>(128 * std::pow(0.5, mip));
-        glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, mipWidth, mipHeight);
-        glViewport(0, 0, mipWidth, mipHeight);
 
-        float roughness = (float)mip / (float)(maxMipLevels - 1);
-        prefilterShader.setFloat("roughness", roughness);
-        for (unsigned int i = 0; i < 6; ++i)
-        {
-            prefilterShader.setMat4("view", captureViews[i]);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, prefilterMap, mip);
+    glViewport(0, 0, 128, 128);
 
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            renderCube();
-        }
-    }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    // pbr: generate a 2D LUT from the BRDF equations used.
-    // ----------------------------------------------------
-    unsigned int brdfLUTTexture;
-    glGenTextures(1, &brdfLUTTexture);
-
-    // pre-allocate enough memory for the LUT texture.
-    glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, 512, 512, 0, GL_RG, GL_FLOAT, 0);
-    // be sure to set wrapping mode to GL_CLAMP_TO_EDGE
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // then re-configure capture framebuffer object and render screen-space quad with BRDF shader.
-    glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-    glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
-
-    glViewport(0, 0, 512, 512);
-    brdfShader.use();
-
-    int startframe = 2;
-    int endframe = 2002;
-    // int f = 0;
+int startframe = 10;
+    int endframe = 170;
+    int f = 0;
     auto start=std::chrono::system_clock::now();
     auto end=std::chrono::system_clock::now();
-    for (int f = 0; f <= endframe; f++){
 
+    // render loop
+    // -----------
+    while (!glfwWindowShouldClose(window))
+    {
+
+        // input
+        // -----
+        processInput(window);
+
+        // render
+        // ------
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        renderQuad();
 
-        //f++;
+
+            
+
+            float roughness = (float)0 / (float)(maxMipLevels - 1);
+            prefilterShader.setFloat("roughness", roughness);
+                prefilterShader.setMat4("view", captureViews[5]);
+
+                renderCube();
+
+        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        // -------------------------------------------------------------------------------
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+
+        f++;
         if (f == startframe) start=std::chrono::system_clock::now();
         else if (f == endframe){
+            glfwSetWindowShouldClose(window, true);
             end=std::chrono::system_clock::now();
-            break;
         } 
     }
-    auto duration =std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    
+            auto duration =std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     double seconds=double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den;
     std::cout <<"used "<<seconds<<" seconds!" <<std::endl;
     double average = (endframe - startframe) / seconds;
     std::cout<<"fps:"<<average<<" !"<<std::endl;
-    cout<<"----"<<endl;
-    // getchar();getchar();
-
-    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
- 
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -404,37 +262,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
-}
-
-
-// glfw: whenever the mouse moves, this callback is called
-// -------------------------------------------------------
-void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
-{
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
-
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-    lastX = xpos;
-    lastY = ypos;
-
-    camera.ProcessMouseMovement(xoffset, yoffset);
-}
-
-// glfw: whenever the mouse scroll wheel scrolls, this callback is called
-// ----------------------------------------------------------------------
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-    camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
  
 // renders (and builds at first invocation) a sphere

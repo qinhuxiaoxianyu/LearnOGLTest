@@ -109,25 +109,25 @@ int main()
     // load PBR material textures
     // --------------------------
     // rusted iron
-    /**/
+    /*
     unsigned int ironAlbedoMap = loadTexture("resource/rusted_iron/albedo.png");
     unsigned int ironNormalMap = loadTexture("resource/rusted_iron/normal.png");
     unsigned int ironMetallicMap = loadTexture("resource/rusted_iron/metallic.png");
     unsigned int ironRoughnessMap = loadTexture("resource/rusted_iron/roughness.png");
     unsigned int ironAOMap = loadTexture("resource/rusted_iron/ao.png");
-    
+    */
 
     // load models
     // -----------
     Model ourModel("resource/Cerberus/Cerberus_LP.FBX");
-    /*
+    /**/
     stbi_set_flip_vertically_on_load(false);
     unsigned int ironAlbedoMap = loadTexture("resource/Cerberus/Textures/Cerberus_A.tga");
     unsigned int ironNormalMap = loadTexture("resource/Cerberus/Textures/Cerberus_N.tga");
     unsigned int ironMetallicMap = loadTexture("resource/Cerberus/Textures/Cerberus_M.tga");
     unsigned int ironRoughnessMap = loadTexture("resource/Cerberus/Textures/Cerberus_R.tga");
     unsigned int ironAOMap = loadTexture("resource/Cerberus/Textures/Raw/Cerberus_AO.tga");
-    */
+    
 
 
     // lights
@@ -391,9 +391,9 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         
         glActiveTexture(GL_TEXTURE8);
-        // glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
         //glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
-        glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
+        // glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
 
             model = glm::translate(model, glm::vec3(-0.55f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
@@ -441,8 +441,8 @@ int main()
         // }
        
 
-        // pbrShader.setMat4("model", model);
-        // ourModel.Draw(pbrShader);
+        pbrShader.setMat4("model", model);
+        ourModel.Draw(pbrShader);
 
         // render light source (simply re-render sphere at light positions)
         // this looks a bit off as we use the same shader, but it'll make their positions obvious and 
