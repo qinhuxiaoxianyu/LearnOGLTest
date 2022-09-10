@@ -55,6 +55,7 @@ vec2 Hammersley(uint i, uint N)
 // ----------------------------------------------------------------------------
 // http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html
 // efficient VanDerCorpus calculation.
+/**/
 float RadicalInverse_VdC(uint bits) //Van Der Corput 序列
 {
      bits = (bits << 16u) | (bits >> 16u);
@@ -113,7 +114,7 @@ void main()
     {
         // generates a sample vector that's biased towards the preferred alignment direction (importance sampling).
         vec2 Xi = Hammersley(i, SAMPLE_COUNT);//低差异序列，Hammersley 序列
-        //vec2 Xi = Halton(i);
+        // vec2 Xi = Halton(i);
         vec3 H = ImportanceSampleGGX(Xi, N, roughness);//根据低差异序列，采样方向和粗糙度生成采样向量，但实际并不用这个向量取样
         vec3 L  = normalize(2.0 * dot(V, H) * H - V);//这里不是很懂在干嘛？
         //通过画图，大概可以理解到L是用于计算镜面波瓣的边界？

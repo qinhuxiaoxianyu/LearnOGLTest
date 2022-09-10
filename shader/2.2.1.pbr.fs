@@ -101,7 +101,7 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
 }
 
 //这一部分是直接计算pbr
-/*
+/**/
 float RadicalInverse_VdC(uint bits) //Van Der Corput 序列
 {
      bits = (bits << 16u) | (bits >> 16u);
@@ -172,7 +172,7 @@ vec3 SpecularIBL(vec3 SpecularColor, float Roughness, vec3 F, vec3 N, vec3 V)
     for( uint i = 0; i < NumSamples; i++ )
     {
         vec2 Xi = Hammersley(i, NumSamples);
-        vec3 H = ImportanceSampleGGX( Xi, Roughness, N );
+        vec3 H = ImportanceSampleGGX( Xi, N, Roughness);
         vec3 L = normalize(2.0 * dot(V, H) * H - V);;
         float NoV = max( dot( N, V ), 0.000001);
         float NoL = max( dot( N, L ), 0.0);
@@ -209,7 +209,7 @@ void main(){
     F0 = mix(F0, SpecularColor, metallic);
     vec3 F = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
 
-    vec3 specular = SpecularIBL(albedo, roughness, F, N, V);
+    vec3 specular = SpecularIBL(albedo, roughness, F, N, V,);
 
     vec3 kD = (1.0 - F) * (1.0 - metallic);
     vec3 irradiance = texture(irradianceMap, N).rgb;
@@ -222,12 +222,12 @@ void main(){
     // gamma correct
     color = pow(color, vec3(1.0/2.2)); 
 
-    FragColor = vec4(color , 1.0);
-
+    //FragColor = vec4(color , 1.0);
+    FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
-*/
+
 //以上部分是直接计算pbr
-/**/
+/*
 // ----------------------------------------------------------------------------
 void main()
 {		
@@ -312,3 +312,4 @@ void main()
 
     FragColor = vec4(color , 1.0);
 }
+*/

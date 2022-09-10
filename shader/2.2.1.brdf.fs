@@ -10,8 +10,37 @@ out vec2 FragColor;
 in vec2 TexCoords;
 
 const float PI = 3.14159265359;
+
+/*
+float RadicalInverse(uint Base, uint i)
+{
+	float Radical = 1.0 / float(Base);
+	float Digit = 1.0 / float(Base);
+	float Inverse = 0.0;
+	for(i; i > 0u; i /= Base)
+	{
+		Inverse += Digit * (float(i % Base));
+		Digit *= Radical;
+
+		// i /= Base;
+	}
+	return Inverse;
+}
+
+vec2 Halton(uint i)
+{
+	return vec2(RadicalInverse(2u, i), RadicalInverse(3u, i));
+}
+
+vec2 Hammersley(uint i, uint N)
+{
+	return vec2(float(i)/float(N), RadicalInverse(2u, i));//Hammersley 序列是基于 Van Der Corput 序列
+}
+*/
+
 // ----------------------------------------------------------------------------
 // http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html
+/**/
 // efficient VanDerCorpus calculation.
 float RadicalInverse_VdC(uint bits) 
 {
@@ -27,6 +56,7 @@ vec2 Hammersley(uint i, uint N)
 {
 	return vec2(float(i)/float(N), RadicalInverse_VdC(i));
 }
+
 // ----------------------------------------------------------------------------
 vec3 ImportanceSampleGGX(vec2 Xi, vec3 N, float roughness)
 {
@@ -91,6 +121,7 @@ vec2 IntegrateBRDF(float NdotV, float roughness)
         // generates a sample vector that's biased towards the
         // preferred alignment direction (importance sampling).
         vec2 Xi = Hammersley(i, SAMPLE_COUNT);
+        // vec2 Xi = Halton(i);
         vec3 H = ImportanceSampleGGX(Xi, N, roughness);
         vec3 L = normalize(2.0 * dot(V, H) * H - V);
 

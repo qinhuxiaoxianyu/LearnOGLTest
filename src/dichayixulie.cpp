@@ -119,7 +119,7 @@ int main()
 
     // load models
     // -----------
-    Model ourModel("resource/Cerberus/Cerberus_LP.FBX");
+    //Model ourModel("resource/Cerberus/Cerberus_LP.FBX");
     /*
     stbi_set_flip_vertically_on_load(false);
     unsigned int ironAlbedoMap = loadTexture("resource/Cerberus/Textures/Cerberus_A.tga");
@@ -346,152 +346,33 @@ int main()
     glViewport(0, 0, 512, 512);
     brdfShader.use();
 
+    int startframe = 2;
+    int endframe = 2002;
+    // int f = 0;
+    auto start=std::chrono::system_clock::now();
+    auto end=std::chrono::system_clock::now();
+    for (int f = 0; f <= endframe; f++){
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         renderQuad();
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-    // initialize static shader uniforms before rendering
-    // --------------------------------------------------
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-    pbrShader.use();
-    pbrShader.setMat4("projection", projection);
-    backgroundShader.use();
-    backgroundShader.setMat4("projection", projection);
-
-    // then before rendering, configure the viewport to the original framebuffer's screen dimensions
-    int scrWidth, scrHeight;
-    glfwGetFramebufferSize(window, &scrWidth, &scrHeight);
-    glViewport(0, 0, scrWidth, scrHeight);
-
-        // bind pre-computed IBL data
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-
-        // rusted iron
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, ironAlbedoMap);
-        glActiveTexture(GL_TEXTURE4);
-        glBindTexture(GL_TEXTURE_2D, ironNormalMap);
-        glActiveTexture(GL_TEXTURE5);
-        glBindTexture(GL_TEXTURE_2D, ironMetallicMap);
-        glActiveTexture(GL_TEXTURE6);
-        glBindTexture(GL_TEXTURE_2D, ironRoughnessMap);
-        glActiveTexture(GL_TEXTURE7);
-        glBindTexture(GL_TEXTURE_2D, ironAOMap);
-
-        glActiveTexture(GL_TEXTURE8);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-
-        glm::mat4 model = glm::mat4(1.0f);
-        
-        glActiveTexture(GL_TEXTURE8);
-        // glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-        //glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
-        glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
-
-            model = glm::translate(model, glm::vec3(-0.55f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-            model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
-            model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-            model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-    // int startframe = 100;
-    // int endframe = 2100;
-    // int f = 0;
-    // auto start=std::chrono::system_clock::now();
-    // auto end=std::chrono::system_clock::now();
-/*    */
-    // render loop
-    // -----------
-    while (!glfwWindowShouldClose(window))
-    {
-        // per-frame time logic
-        // --------------------
-        float currentFrame = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-
-        // input
-        // -----
-        processInput(window);
-
-        // render
-        // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // render scene, supplying the convoluted irradiance map to the final shader.
-        // ------------------------------------------------------------------------------------------
-        pbrShader.use();
-        glm::mat4 view = camera.GetViewMatrix();
-        pbrShader.setMat4("view", view);
-        pbrShader.setVec3("camPos", camera.Position);
-
-
-        // for (int i = 0; i < 5; i++){
-        //     model = glm::mat4(1.0f);
-        //     model = glm::translate(model, glm::vec3(-5.0 + i * 2.5, 0.0, 2.0));
-        //     pbrShader.setMat4("model", model);
-        //     renderSphere();
-        // }
-       
-
-        // pbrShader.setMat4("model", model);
-        // ourModel.Draw(pbrShader);
-
-        // render light source (simply re-render sphere at light positions)
-        // this looks a bit off as we use the same shader, but it'll make their positions obvious and 
-        // keeps the codeprint small.
-
-        // for (unsigned int i = 0; i < sizeof(lightPositions) / sizeof(lightPositions[0]); ++i)
-        // {
-        //     glm::vec3 newPos = lightPositions[i] + glm::vec3(sin(glfwGetTime() * 5.0) * 5.0, 0.0, 0.0);
-        //     newPos = lightPositions[i];
-        //     pbrShader.setVec3("lightPositions[" + std::to_string(i) + "]", newPos);
-        //     pbrShader.setVec3("lightColors[" + std::to_string(i) + "]", lightColors[i]);
-
-        //     model = glm::mat4(1.0f);
-        //     model = glm::translate(model, newPos);
-        //     model = glm::scale(model, glm::vec3(0.5f));
-        //     pbrShader.setMat4("model", model);
-        //     renderSphere();
-        // }
-        
-
-        // render skybox (render as last to prevent overdraw)
-        //绑定不同的图在前面
-        backgroundShader.use();
-        backgroundShader.setMat4("view", view);
-        renderCube();
-
-        // render BRDF map to screen
-        // brdfShader.use();
-        // renderQuad();
-
-
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-
-        // f++;
-        // if (f == startframe) start=std::chrono::system_clock::now();
-        // else if (f == endframe){
-        //     glfwSetWindowShouldClose(window, true);
-        //     end=std::chrono::system_clock::now();
-        // } 
+        //f++;
+        if (f == startframe) start=std::chrono::system_clock::now();
+        else if (f == endframe){
+            end=std::chrono::system_clock::now();
+            break;
+        } 
     }
+    auto duration =std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    double seconds=double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den;
+    std::cout <<"used "<<seconds<<" seconds!" <<std::endl;
+    double average = (endframe - startframe) / seconds;
+    std::cout<<"fps:"<<average<<" !"<<std::endl;
+    cout<<"----"<<endl;
+    // getchar();getchar();
 
-    // auto duration =std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    // double seconds=double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den;
-    // std::cout <<"used "<<seconds<<" seconds!" <<std::endl;
-    // double average = (endframe - startframe) / seconds;
-    // std::cout<<"fps:"<<average<<" !"<<std::endl;
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+ 
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
