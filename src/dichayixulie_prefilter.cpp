@@ -80,8 +80,9 @@ int main()
     glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
     Shader equirectangularToCubemapShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.equirectangular_to_cubemap.fs");//将等距柱状投影图转换为立方体贴图
-    Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");//生成预滤波环境贴图
-
+    //Shader prefilterShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.prefilter.fs");//生成预滤波环境贴图
+    Shader irradianceShader("shader/2.2.1.cubemap.vs", "shader/2.2.1.irradiance_convolution.fs");//将立方体贴图转换为辐照度图
+    
 
     // pbr: setup framebuffer
     // ----------------------
@@ -174,18 +175,23 @@ int main()
 
     // pbr: run a quasi monte-carlo simulation on the environment lighting to create a prefilter (cube)map.
     // ----------------------------------------------------------------------------------------------------
+    /*
     prefilterShader.use();
     prefilterShader.setInt("environmentMap", 0);
     prefilterShader.setMat4("projection", captureProjection);
+    unsigned int maxMipLevels = 5;
+*/  
+    irradianceShader.use();
+    irradianceShader.setInt("environmentMap", 0);
+    irradianceShader.setMat4("projection", captureProjection);
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-
-    unsigned int maxMipLevels = 5;
 
     glViewport(0, 0, 128, 128);
 
 int startframe = 10;
-    int endframe = 170;
+    int endframe = 20;
     int f = 0;
     auto start=std::chrono::system_clock::now();
     auto end=std::chrono::system_clock::now();
@@ -206,11 +212,12 @@ int startframe = 10;
 
 
             
-
+/*
             float roughness = (float)0 / (float)(maxMipLevels - 1);
             prefilterShader.setFloat("roughness", roughness);
                 prefilterShader.setMat4("view", captureViews[5]);
-
+*/
+irradianceShader.setMat4("view", captureViews[5]);
                 renderCube();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

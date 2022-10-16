@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Sep 11 01:00:11 2022
+# Make data base, printed on Sun Sep 18 16:49:12 2022
 
 # Variables
 
@@ -33,9 +35,9 @@ CURDIR := /home/shensz/workspace/LearnOGLTest
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"a1516064f4f46f2a618c351c3fa99660.zh-cn","_translationsConfigFile":"/home/shensz/.vscode-server/data/clp/a1516064f4f46f2a618c351c3fa99660.zh-cn/tcf.json","_cacheRoot":"/home/shensz/.vscode-server/data/clp/a1516064f4f46f2a618c351c3fa99660.zh-cn","_resolvedLanguagePackCoreLocation":"/home/shensz/.vscode-server/data/clp/a1516064f4f46f2a618c351c3fa99660.zh-cn/784b0177c56c607789f9638da7b6bf3230d47a8c","_corruptedFile":"/home/shensz/.vscode-server/data/clp/a1516064f4f46f2a618c351c3fa99660.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"52a557de5c39607b04949a9e2e3aeee5.zh-cn","_translationsConfigFile":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn/tcf.json","_cacheRoot":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn","_resolvedLanguagePackCoreLocation":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn/74b1f979648cc44d385a2286793c226e611f59e7","_corruptedFile":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /home/shensz/.vscode-server/bin/784b0177c56c607789f9638da7b6bf3230d47a8c/node
+_ = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -51,9 +53,9 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /home/shensz
 # environment
-SSH_CONNECTION = 192.168.182.1 59534 192.168.182.131 22
+SSH_CONNECTION = 192.168.182.1 55729 192.168.182.131 22
 # environment
-PATH = /home/shensz/.vscode-server/bin/784b0177c56c607789f9638da7b6bf3230d47a8c/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # makefile (from 'Makefile', line 22)
 RM_FLAG = -r
 # environment
@@ -73,7 +75,7 @@ RM_FILE = out/*
 # environment
 PWD = /home/shensz/workspace/LearnOGLTest
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-24e9e095-3cd7-449e-9bdb-c6078c6d1cd4.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-ba688d70-a363-4cb9-af9d-47d838bb9783.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -118,6 +120,8 @@ INCLUDE = -Iinclude -Iincl
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7
 # default
 .VARIABLES := 
 # automatic
@@ -131,13 +135,13 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 192.168.182.1 59534 22
+SSH_CLIENT = 192.168.182.1 55729 22
 # environment
 MAIL = /var/mail/shensz
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /home/shensz/.vscode-server/bin/784b0177c56c607789f9638da7b6bf3230d47a8c/bin/helpers/browser.sh
+BROWSER = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7/bin/helpers/browser.sh
 # environment
 VSCODE_HANDLES_SIGPIPE = true
 # default
@@ -165,7 +169,7 @@ LANG = C
 # makefile (from 'Makefile', line 14)
 POST = $(CFLAG_OUT) $(OUT_FILE)
 # variable set hash-table stats:
-# Load=77/1024=8%, Rehash=0, Collisions=9/102=9%
+# Load=78/1024=8%, Rehash=0, Collisions=9/103=9%
 
 # Pattern-specific Variable Values
 
@@ -174,9 +178,9 @@ POST = $(CFLAG_OUT) $(OUT_FILE)
 # Directories
 
 # . (device 2049, inode 1107346): 14 files, no impossibilities.
-# src (device 2049, inode 1107383): 38 files, 2 impossibilities.
+# src (device 2049, inode 1107383): 39 files, 2 impossibilities.
 
-# 52 files, 2 impossibilities in 2 directories.
+# 53 files, 2 impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -229,14 +233,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 63 / storage = 1014 B / avg = 16 B
-# current buf: size = 8162 B / used = 1014 B / count = 63 / avg = 16 B
+# strcache buffers: 1 (0) / strings = 64 / storage = 1040 B / avg = 16 B
+# current buf: size = 8162 B / used = 1040 B / count = 64 / avg = 16 B
 
-# strcache performance: lookups = 75 / hit rate = 16%
+# strcache performance: lookups = 76 / hit rate = 15%
 # hash-table stats:
-# Load=63/8192=1%, Rehash=0, Collisions=2/75=3%
-# Finished Make data base on Sun Sep 11 01:00:11 2022
+# Load=64/8192=1%, Rehash=0, Collisions=2/76=3%
+# Finished Make data base on Sun Sep 18 16:49:12 2022
 
  
-make: *** No rule to make target 'all'.  Stop.
-

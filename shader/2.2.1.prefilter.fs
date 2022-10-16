@@ -106,7 +106,7 @@ void main()
     vec3 R = N;
     vec3 V = R;
 
-    const uint SAMPLE_COUNT = 1024u;
+    const uint SAMPLE_COUNT = 1024u;//32 64 128 256 512 1024 2048
     vec3 prefilteredColor = vec3(0.0);
     float totalWeight = 0.0;
     
@@ -147,4 +147,5 @@ void main()
     prefilteredColor = prefilteredColor / totalWeight;
 
     FragColor = vec4(prefilteredColor, 1.0);
+    //FragColor = vec4(1.0);
 }

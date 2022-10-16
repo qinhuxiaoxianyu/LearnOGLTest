@@ -109,25 +109,26 @@ int main()
     // load PBR material textures
     // --------------------------
     // rusted iron
-    /*
+    /*加载球*/
     unsigned int ironAlbedoMap = loadTexture("resource/rusted_iron/albedo.png");
     unsigned int ironNormalMap = loadTexture("resource/rusted_iron/normal.png");
     unsigned int ironMetallicMap = loadTexture("resource/rusted_iron/metallic.png");
     unsigned int ironRoughnessMap = loadTexture("resource/rusted_iron/roughness.png");
     unsigned int ironAOMap = loadTexture("resource/rusted_iron/ao.png");
-    */
-
+    
+/*加载模型
     // load models
     // -----------
     Model ourModel("resource/Cerberus/Cerberus_LP.FBX");
-    /**/
+    
     stbi_set_flip_vertically_on_load(false);
     unsigned int ironAlbedoMap = loadTexture("resource/Cerberus/Textures/Cerberus_A.tga");
     unsigned int ironNormalMap = loadTexture("resource/Cerberus/Textures/Cerberus_N.tga");
     unsigned int ironMetallicMap = loadTexture("resource/Cerberus/Textures/Cerberus_M.tga");
     unsigned int ironRoughnessMap = loadTexture("resource/Cerberus/Textures/Cerberus_R.tga");
     unsigned int ironAOMap = loadTexture("resource/Cerberus/Textures/Raw/Cerberus_AO.tga");
-    
+    加载模型结束
+    */
 
 
     // lights
@@ -391,9 +392,10 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         
         glActiveTexture(GL_TEXTURE8);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+        //绑定不同的背景图
+        //glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);     // display envCubemap
         //glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
-        // glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
+         glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
 
             model = glm::translate(model, glm::vec3(-0.55f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
@@ -432,17 +434,18 @@ int main()
         pbrShader.setMat4("view", view);
         pbrShader.setVec3("camPos", camera.Position);
 
-
-        // for (int i = 0; i < 5; i++){
-        //     model = glm::mat4(1.0f);
-        //     model = glm::translate(model, glm::vec3(-5.0 + i * 2.5, 0.0, 2.0));
-        //     pbrShader.setMat4("model", model);
-        //     renderSphere();
-        // }
-       
-
+/*渲染球
+        for (int i = 0; i < 5; i++){
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(-5.0 + i * 2.5, 0.0, 2.0));
+            pbrShader.setMat4("model", model);
+            renderSphere();
+        }
+*/       
+/*渲染模型
         pbrShader.setMat4("model", model);
         ourModel.Draw(pbrShader);
+渲染模型*/
 
         // render light source (simply re-render sphere at light positions)
         // this looks a bit off as we use the same shader, but it'll make their positions obvious and 
@@ -462,16 +465,17 @@ int main()
         //     renderSphere();
         // }
         
-
+        //渲染立方体贴图
         // render skybox (render as last to prevent overdraw)
-        //绑定不同的图在前面
-        backgroundShader.use();
-        backgroundShader.setMat4("view", view);
-        renderCube();
+        //绑定不同的背景图在前面
+        // backgroundShader.use();
+        // backgroundShader.setMat4("view", view);
+        // renderCube();
 
+        //渲染二维贴图
         // render BRDF map to screen
-        // brdfShader.use();
-        // renderQuad();
+        brdfShader.use();
+        renderQuad();
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
