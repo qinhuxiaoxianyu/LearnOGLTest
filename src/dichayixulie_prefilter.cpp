@@ -181,6 +181,7 @@ int main()
     prefilterShader.setMat4("projection", captureProjection);
     unsigned int maxMipLevels = 5;
 */  
+/**/
     irradianceShader.use();
     irradianceShader.setInt("environmentMap", 0);
     irradianceShader.setMat4("projection", captureProjection);
@@ -191,7 +192,7 @@ int main()
     glViewport(0, 0, 128, 128);
 
 int startframe = 10;
-    int endframe = 20;
+    int endframe = 170;
     int f = 0;
     auto start=std::chrono::system_clock::now();
     auto end=std::chrono::system_clock::now();
@@ -217,6 +218,7 @@ int startframe = 10;
             prefilterShader.setFloat("roughness", roughness);
                 prefilterShader.setMat4("view", captureViews[5]);
 */
+/**/
 irradianceShader.setMat4("view", captureViews[5]);
                 renderCube();
 
