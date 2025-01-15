@@ -366,6 +366,7 @@ int main()
     glfwGetFramebufferSize(window, &scrWidth, &scrHeight);
     glViewport(0, 0, scrWidth, scrHeight);
 
+        //pbrShader.use();
         // bind pre-computed IBL data
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
@@ -385,22 +386,52 @@ int main()
         glBindTexture(GL_TEXTURE_2D, ironRoughnessMap);
         glActiveTexture(GL_TEXTURE7);
         glBindTexture(GL_TEXTURE_2D, ironAOMap);
-
         glActiveTexture(GL_TEXTURE8);
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
-        glm::mat4 model = glm::mat4(1.0f);
-        
+        //backgroundShader.use();
         glActiveTexture(GL_TEXTURE8);
         //绑定不同的背景图
-        //glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);     // display envCubemap
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);     // display envCubemap
         //glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
-         glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
+        // glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap); // display prefilter map
 
+        glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, glm::vec3(-0.55f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
             model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
             model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
             model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+    Shader transparentShader("shader/3.2.blending.vs", "shader/3.2.blending.fs");
+    float transparentVertices[] = {
+        // positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+        0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+        0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+        1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+        0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+        1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+        1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+    };
+    unsigned int transparentVAO, transparentVBO;
+    glGenVertexArrays(1, &transparentVAO);
+    glGenBuffers(1, &transparentVBO);
+    glBindVertexArray(transparentVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, transparentVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glBindVertexArray(0);
+    unsigned int transparentTexture = loadTexture("resource/window.png");
+    transparentShader.use();
+    transparentShader.setInt("texture1", 9);
+    transparentShader.setMat4("projection", projection);
+    glActiveTexture(GL_TEXTURE9);
+    glBindTexture(GL_TEXTURE_2D, transparentTexture);
+    glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // int startframe = 100;
     // int endframe = 2100;
@@ -434,14 +465,16 @@ int main()
         pbrShader.setMat4("view", view);
         pbrShader.setVec3("camPos", camera.Position);
 
-/*渲染球
-        for (int i = 0; i < 5; i++){
+/*渲染球*/
+        //for (int i = 0; i < 5; i++){
+
             model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(-5.0 + i * 2.5, 0.0, 2.0));
+            //model = glm::translate(model, glm::vec3(-5.0 + i * 2.5, 0.0, 2.0));
+            model = glm::translate(model, glm::vec3(0.0, 0.0, -10.0));
             pbrShader.setMat4("model", model);
             renderSphere();
-        }
-*/       
+        //}
+       
 /*渲染模型
         pbrShader.setMat4("model", model);
         ourModel.Draw(pbrShader);
@@ -468,15 +501,31 @@ int main()
         //渲染立方体贴图
         // render skybox (render as last to prevent overdraw)
         //绑定不同的背景图在前面
-        // backgroundShader.use();
-        // backgroundShader.setMat4("view", view);
-        // renderCube();
+        backgroundShader.use();
+        backgroundShader.setMat4("view", view);
+        renderCube();
 
         //渲染二维贴图
         // render BRDF map to screen
-        brdfShader.use();
-        renderQuad();
+        // brdfShader.use();
+        // renderQuad();
 
+        //透明窗
+        /*transparentShader.use();
+        glBindVertexArray(transparentVAO);
+        transparentShader.setMat4("view", view);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-0.6f, -0.2f, -0.5f));
+        transparentShader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.05f, 1.0f));
+        transparentShader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindVertexArray(0);
+  */      
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

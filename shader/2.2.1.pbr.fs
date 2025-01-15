@@ -16,6 +16,7 @@ uniform sampler2D roughnessMap;
 uniform sampler2D aoMap;
 
 uniform samplerCube environmentMap;
+//直接计算pbr要用
 
 // IBL
 uniform samplerCube irradianceMap;
@@ -192,7 +193,7 @@ vec3 SpecularIBL(vec3 SpecularColor, float Roughness, vec3 F, vec3 N, vec3 V)
     return SpecularLighting / NumSamples;
 }
 
-
+/*
 void main(){
     // material properties
     vec3 albedo = pow(texture(albedoMap, TexCoords).rgb, vec3(2.2));
@@ -225,9 +226,9 @@ void main(){
     //FragColor = vec4(color , 1.0);
     FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
-
+*/
 //以上部分是直接计算pbr
-/*
+
 // ----------------------------------------------------------------------------
 void main()
 {		
@@ -312,4 +313,3 @@ void main()
 
     FragColor = vec4(color , 1.0);
 }
-*/

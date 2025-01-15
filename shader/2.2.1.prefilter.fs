@@ -106,9 +106,9 @@ void main()
     vec3 R = N;
     vec3 V = R;
 
-    const uint SAMPLE_COUNT = 1024u;//32 64 128 256 512 1024 2048
+    const uint SAMPLE_COUNT = 32u;//32 64 128 256 512 1024 2048
     vec3 prefilteredColor = vec3(0.0);
-    float totalWeight = 0.0;
+    float totalWeight = 0.0001;
     
     for(uint i = 0u; i < SAMPLE_COUNT; ++i)
     {
@@ -139,6 +139,7 @@ void main()
             float mipLevel = roughness == 0.0 ? 0.0 : 0.5 * log2(saSample / saTexel); 
             
             prefilteredColor += textureLod(environmentMap, L, mipLevel).rgb * NdotL;//在不考虑预过滤卷积的亮点的情况下，只有这两步
+            //prefilteredColor += textureLod(environmentMap, L, 0.0).rgb * NdotL;
             //textureLod(sampler, P, Lod);sampler采样器，P采样向量，Lod level of detail
             totalWeight      += NdotL;
         }

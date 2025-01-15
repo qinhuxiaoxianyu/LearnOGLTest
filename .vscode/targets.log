@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Sep 18 16:49:12 2022
+# Make data base, printed on Thu May 18 22:20:20 2023
 
 # Variables
 
@@ -35,9 +35,9 @@ CURDIR := /home/shensz/workspace/LearnOGLTest
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"52a557de5c39607b04949a9e2e3aeee5.zh-cn","_translationsConfigFile":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn/tcf.json","_cacheRoot":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn","_resolvedLanguagePackCoreLocation":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn/74b1f979648cc44d385a2286793c226e611f59e7","_corruptedFile":"/home/shensz/.vscode-server/data/clp/52a557de5c39607b04949a9e2e3aeee5.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","osLocale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"b8e8c951dd5b5f651e028f8bda5e81eb.zh-cn","_translationsConfigFile":"/home/shensz/.vscode-server/data/clp/b8e8c951dd5b5f651e028f8bda5e81eb.zh-cn/tcf.json","_cacheRoot":"/home/shensz/.vscode-server/data/clp/b8e8c951dd5b5f651e028f8bda5e81eb.zh-cn","_resolvedLanguagePackCoreLocation":"/home/shensz/.vscode-server/data/clp/b8e8c951dd5b5f651e028f8bda5e81eb.zh-cn/704ed70d4fd1c6bd6342c436f1ede30d1cff4710","_corruptedFile":"/home/shensz/.vscode-server/data/clp/b8e8c951dd5b5f651e028f8bda5e81eb.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7/node
+_ = /home/shensz/.vscode-server/bin/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -53,9 +53,9 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /home/shensz
 # environment
-SSH_CONNECTION = 192.168.182.1 55729 192.168.182.131 22
+SSH_CONNECTION = 192.168.49.1 51140 192.168.49.128 22
 # environment
-PATH = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/shensz/.vscode-server/bin/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # makefile (from 'Makefile', line 22)
 RM_FLAG = -r
 # environment
@@ -75,7 +75,7 @@ RM_FILE = out/*
 # environment
 PWD = /home/shensz/workspace/LearnOGLTest
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-ba688d70-a363-4cb9-af9d-47d838bb9783.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-9de2bf19-3eff-4bc1-8ab1-ad9f03a72fb7.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -120,8 +120,6 @@ INCLUDE = -Iinclude -Iincl
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
-# environment
-OLDPWD = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7
 # default
 .VARIABLES := 
 # automatic
@@ -135,13 +133,13 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 192.168.182.1 55729 22
+SSH_CLIENT = 192.168.49.1 51140 22
 # environment
 MAIL = /var/mail/shensz
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /home/shensz/.vscode-server/bin/74b1f979648cc44d385a2286793c226e611f59e7/bin/helpers/browser.sh
+BROWSER = /home/shensz/.vscode-server/bin/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/bin/helpers/browser.sh
 # environment
 VSCODE_HANDLES_SIGPIPE = true
 # default
@@ -169,7 +167,7 @@ LANG = C
 # makefile (from 'Makefile', line 14)
 POST = $(CFLAG_OUT) $(OUT_FILE)
 # variable set hash-table stats:
-# Load=78/1024=8%, Rehash=0, Collisions=9/103=9%
+# Load=77/1024=8%, Rehash=0, Collisions=9/102=9%
 
 # Pattern-specific Variable Values
 
@@ -233,12 +231,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 64 / storage = 1040 B / avg = 16 B
-# current buf: size = 8162 B / used = 1040 B / count = 64 / avg = 16 B
+# strcache buffers: 1 (0) / strings = 64 / storage = 1046 B / avg = 16 B
+# current buf: size = 8162 B / used = 1046 B / count = 64 / avg = 16 B
 
 # strcache performance: lookups = 76 / hit rate = 15%
 # hash-table stats:
 # Load=64/8192=1%, Rehash=0, Collisions=2/76=3%
-# Finished Make data base on Sun Sep 18 16:49:12 2022
+# Finished Make data base on Thu May 18 22:20:20 2023
 
  
